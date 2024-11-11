@@ -25,73 +25,50 @@ The Vigenere cipher is a method of encrypting alphabetic text by using a series 
 
 ## PROGRAM:
 ```
+
 #include <stdio.h>
-#include <ctype.h>
 #include <string.h>
-#include<stdlib.h>
-void encipher();
-void decipher();
-void main()
-{
-int choice;
-while(1)
-{
-printf("\n1. Encrypt Text");
-printf("\t2. Decrypt Text");
-printf("\t3. Exit");
-printf("\n\nEnter Your Choice : ");
-scanf("%d",&choice);
-if(choice == 3)
-break;
-else if(choice == 1)
-encipher();
-else if(choice == 2)
-decipher();
-else
-printf("Please Enter Valid Option.");
- }
+void vigenereEncrypt(char *text, const char *key) {
+    int textLen = strlen(text);
+    int keyLen = strlen(key);
+    for (int i = 0; i < textLen; i++) {
+        char c = text[i];
+        if (c >= 'A' && c <= 'Z') {
+            text[i] = ((c - 'A' + key[i % keyLen] - 'A') % 26) + 'A';
+        } else if (c >= 'a' && c <= 'z') {
+            // Encrypt lowercase letters
+            text[i] = ((c - 'a' + key[i % keyLen] - 'A') % 26) + 'a';
+        }
+    }
 }
-void encipher()
-{
-unsigned int i,j;
-char input[50],key[10];
-printf("\n\nEnter Plain Text: ");
-scanf("%s",input);
-printf("\nEnter Key Value: ");
-scanf("%s",key);
-printf("\nResultant Cipher Text: ");
-for(i=0,j=0;i<strlen(input);i++,j++)
-{
-if(j>=strlen(key))
-{ j=0;
+void vigenereDecrypt(char *text, const char *key) {
+    int textLen = strlen(text);
+    int keyLen = strlen(key);
+    for (int i = 0; i < textLen; i++) {
+        char c = text[i];
+        if (c >= 'A' && c <= 'Z') {
+            text[i] = ((c - 'A' - (key[i % keyLen] - 'A') + 26) % 26) + 'A';
+        } else if (c >= 'a' && c <= 'z') {
+            text[i] = ((c - 'a' - (key[i % keyLen] - 'A') + 26) % 26) + 'a';
+        }
+    }
 }
-printf("%c",65+(((toupper(input[i])-65)+(toupper(key[j])-
-65))%26));
-}}
-void decipher()
-{
-unsigned int i,j;
-char input[50],key[10];
-int value;
-printf("\n\nEnter Cipher Text: ");
-scanf("%s",input);
- printf("\n\nEnter the key value: ");
-scanf("%s",key);
-for(i=0,j=0;i<strlen(input);i++,j++)
-{
-if(j>=strlen(key))
-{ j=0; }
-value = (toupper(input[i])-64)-(toupper(key[j])-64);
-if( value < 0)
-{ value = value * -1;
-}
-printf("%c",65 + (value % 26));
-}
+
+int main() {
+    const char *key = "KEY"; 
+    char message[100] ;
+    printf("Enter the message:");
+    scanf("%[^\n]",message);
+    vigenereEncrypt(message, key);
+    printf("Encrypted Message: %s\n", message);
+    vigenereDecrypt(message, key);
+    printf("Decrypted Message: %s\n", message);
+   return 0;
 }
 ```
 
 ## OUTPUT:
-![output 3](https://github.com/user-attachments/assets/527cb005-7ee6-46d9-bc34-ef18dfe2517f)
+![image](https://github.com/user-attachments/assets/ac0a9d44-a009-429d-a288-1eb57c82507f)
 
 ## RESULT:
 The program is executed successfully
