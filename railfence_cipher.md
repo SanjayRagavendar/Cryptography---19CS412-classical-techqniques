@@ -27,53 +27,48 @@ In the rail fence cipher, the plaintext is written downwards and diagonally on s
 ```
 #include<stdio.h>
 #include<string.h>
-void main()
-{
-int i,j,k,l;
-char a[20],c[20],d[20];
-printf("\n\t\t RAIL FENCE TECHNIQUE");
-printf("\n\nEnter the input string : ");
-for (i=0;i<20;i++)
-{
-    scanf("%c",&a[i]);
-}
-l=strlen(a);
-/*Ciphering*/
-for(i=0,j=0;i<l;i++)
-{
- if(i%2==0)
- c[j++]=a[i];
-}
-for(i=0;i<l;i++)
-{
- if(i%2==1)
- c[j++]=a[i];
-}
-c[j]='\0';
-printf("\nCipher text after applying rail fence :");
-printf("\n%s",c);
-/*Deciphering*/
-if(l%2==0)
- k=l/2;
-else
- k=(l/2)+1;
-for(i=0,j=0;i<k;i++)
-{
- d[j]=c[i];
- j=j+2;
-}
-for(i=k,j=1;i<l;i++)
-{
- d[j]=c[i];
- j=j+2;
-}
-d[l]='\0';
-printf("\nText after decryption : ");
-printf("%s",d);
+#include<stdlib.h>
+int main() {
+    int i, j, len, rails, count, direction;
+    char code[100][1000]; 
+    char str[1000];
+    printf("Enter a Secret Message: ");
+    fgets(str, sizeof(str), stdin);  
+    str[strcspn(str, "\n")] = 0;     
+    len = strlen(str);
+    printf("Enter number of rails: ");
+    scanf("%d", &rails);
+    for (i = 0; i < rails; i++) {
+        for (j = 0; j < len; j++) {
+            code[i][j] = '\0';
+        }
+    }
+    count = 0;
+    direction = 1; // 1 for moving down, -1 for moving up
+    for (j = 0, i = 0; j < len; j++) {
+        code[i][j] = str[j];
+        if (i == 0) {
+            direction = 1; // Move down when at the top
+        } else if (i == rails - 1) {
+            direction = -1; // Move up when at the bottom
+        }
+
+        i += direction; // Move up or down the rails
+    }
+    printf("Encrypted Message: ");
+    for (i = 0; i < rails; i++) {
+        for (j = 0; j < len; j++) {
+            if (code[i][j] != '\0') {
+                printf("%c", code[i][j]);
+            }
+        }
+    }
+    printf("\n");
+    return 0;
 }
 ```
 ## OUTPUT:
-![output 4](https://github.com/user-attachments/assets/7af7375f-8185-45dc-8dfd-77758ae5fc55)
+![image](https://github.com/user-attachments/assets/8bd47b3c-046d-4b85-b299-79dc9591ad8d)
 
 ## RESULT:
 The program is executed successfully
