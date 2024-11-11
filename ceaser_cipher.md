@@ -66,7 +66,7 @@ if (isupper(plain[i]) && (cipher[i] > 'Z'))
 ```
 
 ## OUTPUT:
-![output 1](https://github.com/user-attachments/assets/eec3b500-f079-4f08-b7d0-5bdeed7632a3)
+![image](https://github.com/user-attachments/assets/6add5c37-e786-4301-861d-1febbb0b671e)
 
 ## RESULT:
 The program is executed successfully
